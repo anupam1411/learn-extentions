@@ -11,7 +11,7 @@ export async function action({ request }) {
       `https://dev.twistoe.in/api/merchants/v1/discount/`,
       {
         headers: {
-          Authorization: `Token a1e35a32ccff9bc17784b617a80aea91fb0bff51`,
+          Authorization: `Token `,
         },
       },
     );
