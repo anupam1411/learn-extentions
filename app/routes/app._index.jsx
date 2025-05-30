@@ -14,6 +14,7 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import axios from "axios";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
@@ -96,8 +97,12 @@ export default function Index() {
     "gid://shopify/Product/",
     "",
   );
-
+  async function getOffers() {
+    const response = await axios.get("/api/offers");
+    console.log("response=======", response);
+  }
   useEffect(() => {
+    getOffers();
     if (productId) {
       shopify.toast.show("Product created");
     }

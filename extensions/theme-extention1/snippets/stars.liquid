@@ -1,10 +1,28 @@
-{{ 'ratings.stars.label' | t }}:
+<div id="offers-container"></div>
 
-{%- for i in (1..rating) -%}
-  ★
-{%- endfor -%}
-{%- assign blank_stars = 5 | minus: rating -%}
-{%- for i in (1..blank_stars) -%}
-  ☆
-{%- endfor -%}
+<script>
+async function loadOffers() {
+  try {
+    const response = await fetch('/apps/offers?page=1&page_size=10');
+    const data = await response.json();
+    
+    console.log('Offers data:', data);
+    
+    // Render your offers
+    const container = document.getElementById('offers-container');
+    if (data.results) {
+      container.innerHTML = data.results.map(offer => 
+        `<div class="offer">
+          <h3>${offer.title || 'Offer'}</h3>
+          <p>${offer.description || ''}</p>
+        </div>`
+      ).join('');
+    }
+  } catch (error) {
+    console.error('Error loading offers:', error);
+  }
+}
 
+// Load offers when page loads
+document.addEventListener('DOMContentLoaded', loadOffers);
+</script>
